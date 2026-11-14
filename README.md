@@ -13,6 +13,20 @@ Manuela Jimenez Arredondo manujimeneza | David Moreno Moran davidgmoreno (Propie
 
 ## Respuestas
 
+### 1. Ventajas de usar un pipeline de CI
+
+1. **Protección de la calidad del código.** El pipeline ejecuta pruebas y verifica la cobertura antes de aprobar los cambios. Esto ayuda a detectar errores y regresiones temprano, antes de que lleguen a la rama principal.
+2. **Automatización y ahorro de tiempo.** Tareas repetitivas, como revisar el formato y ejecutar pruebas, se realizan automáticamente en cada cambio. Así, el equipo recibe resultados más rápido y puede dedicar más tiempo al desarrollo.
+3. **Revisión por otra persona.** Las reglas de protección pueden exigir un pull request aprobado y que las verificaciones del pipeline pasen antes de integrar cambios. Esto reduce errores, facilita compartir conocimiento y deja registro de las decisiones.
+
+### 2. Diferencias entre pruebas unitarias, de componente y de aceptación
+
+Como ejemplo, consideremos un sistema para registrar clientes, con un formulario, validaciones y almacenamiento en una base de datos.
+
+- **Prueba unitaria:** valida una función aislada, por ejemplo, que `es_mayor_de_edad(fecha_nacimiento)` determine correctamente si una persona tiene 18 años o más.
+- **Prueba de componente:** valida el flujo de un componente completo, por ejemplo, que el módulo de registro reciba los datos, valide los campos y guarde correctamente un cliente en una base de datos de prueba.
+- **Prueba de aceptación:** comprueba un requisito funcional desde la perspectiva del usuario, por ejemplo, que el sistema permita registrar a una persona mayor de edad y rechace el registro de una persona menor.
+
 ### 3. Steps principales del workflow de GitHub Actions
 
 1. **Checkout:** descarga el código del repositorio en el runner para que los pasos siguientes puedan acceder a los archivos del proyecto. Trae el historial completo para que SonarCloud identifique el código nuevo.
@@ -42,6 +56,10 @@ El segundo fue el puerto 5000: al correr la app en mi Mac salía "Address alread
 El tercero fue en GitHub Actions: el paso de `docker build` falló con `invalid tag "/cicd-pipeline-python"`. Al ver el log, `IMAGE_NAME` empezaba con una barra, o sea que la variable `DOCKERHUB_USERNAME` estaba vacía porque no se había guardado en el repositorio. La creé de nuevo y aprendí la diferencia entre secretos y variables, y que conviene comprobar con `gh variable list` que de verdad existen.
 
 **Angélica Martínez Carmona:** Al principio algunos comandos no se ejecutaban. Lo solucioné guardando los archivos del repositorio y, en otro caso, instalando el comando en el computador. Otro problema fue que había ejecutado el `.env` en una carpeta externa al repositorio.
+
+**David Gustavo Moreno Morán :** Durante la configuración de SonarCloud dejé habilitado el análisis automático del código. Al ejecutar nuevamente el análisis, inicialmente interpreté que los issues reportados correspondían a problemas que ya habían sido corregidos. Sin embargo, identifiqué que estaba revisando los resultados de una sección diferente. Para solucionarlo, consulté los issues registrados en Overall Code, revisé los problemas identificados y realicé las correcciones correspondientes.
+
+Aprendizaje: Comprendí la importancia de diferenciar entre los resultados del análisis de código nuevo (New Code) y el código general (Overall Code) en SonarCloud, así como verificar correctamente los issues antes de dar por solucionados los problemas de calidad.
 
 ### 5. Ventajas de construir la imagen, probarla y publicar esa misma imagen
 
