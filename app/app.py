@@ -1,4 +1,5 @@
-# app/app.py
+"""Rutas y configuración de la aplicación web de la calculadora."""
+
 from flask import Flask, render_template, request
 from .calculadora import sumar, restar, multiplicar, dividir
 
@@ -7,6 +8,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    """Muestra la calculadora y procesa la operación solicitada."""
     # CSRF protection is not needed for this public, stateless calculator:
     # requests do not use cookies or sessions and cannot change persisted data.
     resultado = None

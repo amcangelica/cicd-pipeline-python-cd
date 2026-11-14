@@ -5,15 +5,19 @@ FROM python:3.13-slim
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia solo el lockfile primero para aprovechar la caché de Docker
-COPY requirements-runtime.lock .
+# Copia solo el archivo de requerimientos primero para aprovechar la caché de Docker
+COPY requirements.txt .
 
 # Instala solo las dependencias de ejecución (Flask y Gunicorn)
 # Usa --no-cache-dir para reducir el tamaño de la imagen
-RUN python -m pip install --no-cache-dir --only-binary=:all: -r requirements-runtime.lock
+RUN python -m pip install --no-cache-dir --only-binary=:all: -r requirements.txt
 
 # Copia el código de la aplicación (solo la carpeta app)
 COPY app/ ./app/
+
+# Ejecuta la aplicación con un usuario sin privilegios
+RUN groupadd --system app && useradd --system --gid app --home-dir /app --no-create-home app
+USER app
 
 # Expón el puerto en el que Gunicorn servirá la aplicación
 # Gunicorn por defecto usa 8000, así que usaremos ese.
