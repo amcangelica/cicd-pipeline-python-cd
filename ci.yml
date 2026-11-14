@@ -90,8 +90,8 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: docker/login-action@v4
         with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ vars.davidgmoreno }}
+          password: ${{ secrets.7dee6194538a56bed3fd710cae34af8b0e95e74c }}
 
       - name: Push Docker image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

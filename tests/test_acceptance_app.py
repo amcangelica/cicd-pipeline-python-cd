@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 BASE_URL = os.environ.get("APP_BASE_URL", "http://localhost:5000")
 
 
-# Configuración del driver (elige uno: Chrome o Firefox)
+# Configuración del driver (elige uno: Chrome o Firefox) 1
 @pytest.fixture
 def browser():
     # Opción 1: Chrome (headless - sin interfaz gráfica)
