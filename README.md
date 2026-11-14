@@ -8,8 +8,8 @@ Manuela Jimenez Arredondo manujimeneza | David Moreno Moran davidgmoreno (Propie
 
 ## Evidencias de la sección 9
 
-- Pull request: [#1](https://github.com/davidgmoreno/cicd-pipeline-python/pull/1)
-- Ejecución fallida del pipeline por el error intencional: [ver ejecución](https://github.com/davidgmoreno/cicd-pipeline-python/actions/runs/43618026686/job/132517267855?pr=1)
+- Pull request: https://github.com/davidgmoreno/cicd-pipeline-python/pull/1
+- Ejecución fallida del pipeline por el error intencional: https://github.com/davidgmoreno/cicd-pipeline-python/actions/runs/43618026686/job/132517267855?pr=1
 
 ## Respuestas
 
