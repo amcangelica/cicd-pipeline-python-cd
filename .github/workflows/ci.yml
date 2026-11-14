@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --only-binary=:all: -r requirements-dev.txt
+          python -m pip install --only-binary=:all: --require-hashes -r requirements-dev.txt
 
       - name: Run Black (Formatter)
         run: black app --check  # --check solo verifica, no modifica
@@ -51,7 +51,8 @@ jobs:
 
       - name: Start container
         run: |
-          docker run -d --name calculadora -p 8000:8000 "$IMAGE_NAME:${{ github.sha }}"
+          FLASK_SECRET_KEY=$(python -c 'import secrets; print(secrets.token_hex(32))')
+          docker run -d --name calculadora -p 8000:8000 -e FLASK_SECRET_KEY="$FLASK_SECRET_KEY" "$IMAGE_NAME:${{ github.sha }}"
           # Espera hasta 30 segundos a que la aplicación responda
           timeout 30 bash -c 'until curl -sf http://localhost:8000 > /dev/null; do sleep 1; done'
 
